@@ -1,0 +1,574 @@
+Let's make a game!
+	name:Stone Mine Simulator 2024 • Release 1
+	by:LG Productions
+	desc:<i>Delve into the mines, bake delicious treats for profit, and go for the gold in this reimagining of 2022's Stone Mine Simulator 2!</i><//>Currently in the <b>Release</b> development phase.<//><#000000>ㅤ</#><//><b>LG's Discord Server:</b> <u>https://discord.gg/2wS5E5Rx3h</u><//><#000000>ㅤ</#>/*<//><b>Special Thanks:</b><//>Lexalis8 - <i>for providing some dialogue, story development, and playtesting</i><//><#000000>ㅤ</#>*/<//><b>Changelog:</b><//>───────────────<//><t><b><#ff9502>Alpha Versions:</#></b></t><//>ㅤ<//><t><b><#ff9502>Version 1.0 | ??/??/24 | A flame arises</b></t><.>Launch of the game<.>Currently contains <i>8</i> Quests to complete<.>Burning, Cooking, and Crafting are the base mechanics<.>Only 75/300 Friend conversions are written<.>First three Locations are implemented<.>Tutorials for all mechanics are up and running<//><#000000>ㅤ</#><//><b>NOTICE:</b> The built-in IGM Achievements counter displays incorrect values due to the way Achievements are handled in SMS '24.
+	created:7/9/2024
+    updated:7/9/2024
+
+// missing texture : https://piskel-imgstore-b.appspot.com/img/074b6397-0716-11ef-9eba-a966e87f2471.gif
+	
+Settings
+	background:https://file.garden/Yhwc9XZFah3TM9iw/woodbg.jpg
+	stylesheet:https://pastebin.com/LKkq2gkT
+	spritesheet:resourceIcons, 48 by 48, https://i.postimg.cc/wMjpzB9P/SMS-stone.png
+	// i really tried spritesheets but they were a pain in the ASS!!1!11! why can't igm for the life of itself allow icons to be easily resized to ANYTHING other than 48x48
+	
+CSS
+@font-face {
+	font-family:"Malgun Gothic", sans-serif;
+	font-size:15px;
+}
+
+.thing {
+	font-family:"Malgun Gothic", sans-serif;
+	font-size:15px;
+}
+
+body, html, div {
+	font-family:"Malgun Gothic", sans-serif;
+	font-size:15px;
+}
+
+#game.on {
+	background-size:100% 100%;
+	image-rendering:pixelated;
+}
+
+.title {
+	font-size: 2.3vh !important;
+	line-height: 1.1;
+}
+
+#logInner .message.lootburn {
+	background-image:url(https://piskel-imgstore-b.appspot.com/img/e42931c0-aa72-11ee-b90c-537a4fad48e2.gif);
+	background-origin:border-box;
+	background-position:left;
+	margin:auto;
+	border-style:solid;
+	border-top-width:1px;
+	border-bottom-width:1px;
+	border-color:#FFF;
+	padding:1px;
+	padding-left:44px;
+	background-repeat:no-repeat;
+	margin-left:3px;
+	text-shadow:1.5px 1.5px 1px #000000;
+}
+
+#logInner .message.lootforage {
+	background-image:url(https://piskel-imgstore-b.appspot.com/img/bb8a4f80-002b-11ef-ac6e-a99d19d8a55f.gif);
+	background-origin:border-box;
+	background-position:left;
+	margin:auto;
+	border-style:solid;
+	border-top-width:1px;
+	border-bottom-width:1px;
+	border-color:#FFF;
+	padding:1px;
+	padding-left:44px;
+	background-repeat:no-repeat;
+	margin-left:3px;
+	text-shadow:1.5px 1.5px 1px #000000;
+}
+
+#logInner .message.lootcook {
+	background-image:url(https://piskel-imgstore-b.appspot.com/img/9d06f697-02bd-11ef-aad6-411e5ce21f32.gif);
+	background-origin:border-box;
+	background-position:left;
+	margin:auto;
+	border-style:solid;
+	border-top-width:1px;
+	border-bottom-width:1px;
+	border-color:#FFF;
+	padding:1px;
+	padding-left:44px;
+	background-repeat:no-repeat;
+	margin-left:3px;
+	text-shadow:1.5px 1.5px 1px #000000;
+}
+
+#tooltip {
+	border:3px groove #a74e1d;
+	background-image:url(https://i.postimg.cc/RCKHpKrf/stonetooltip.png);
+	box-shadow:0px 0px 20px 6px rgba(0, 0, 0, 1), inset 0px 0px 6px 1px rgba(103,66,46,0.75);
+	width:max-content;
+	max-width:400px;
+	min-width:320px;
+}
+
+.popup,.toast {
+	border:3px groove #7e492c;
+	background-color:#130d0a;
+	box-shadow:0px 0px 20px 6px rgba(0, 0, 0, 1), inset 0px 0px 6px 1px rgba(103,66,46,0.75);
+	background-size:100% 100%;
+}
+
+.box {
+	text-align:center;
+	color:white;
+	padding:0px;
+}
+
+.tag-mr,.tag-raremr,.tag-fishie,.tag-ore,.tag-weaponmr,.tag-armormr,.tag-arrowmr,.tag-transmr {
+	text-align:left;
+}
+ 
+.thing,.box-header,.box-footer {
+	box-shadow:0px 0px 4px rgba(0,0,0,0.2),1px 1px 2px rgba(0,0,0,0.5),0px 0px 4px rgba(255,255,255,0.5) inset;
+}
+
+.box-header {
+	background:#c2b0a4;
+	border-bottom-left-radius:3px;
+	border-bottom-right-radius:3px;
+	margin-bottom:4px;
+}
+
+.box-footer {
+	background:#20734e;
+	border-top-left-radius:10px;
+	border-top-right-radius:10px;
+	margin-top:4px;
+}
+
+#box-buttons {
+	top:45%;
+	right:0px;
+ 	bottom:0px;
+	left:0px;
+}
+
+.logcss {
+	background:#68645e;
+	top:6.8%;
+	bottom:0px;
+	width:33.5%;
+	right:0%;
+	height:45%;
+	position:fixed;
+	padding-bottom:3px;
+	font-size:14px;
+	z-index:0;
+	border:4px inset #9a5224;
+	border-style:groove groove double double;
+	text-shadow:1.5px 1.5px 1px #000000;
+}
+
+.invcss {
+	background:#998a80;
+	top:51.8%;
+	bottom:0px;
+	width:33.5%;
+	right:0%;
+	height:26%;
+	position:fixed;
+	padding-bottom:3px;
+	font-size:14px;
+	z-index:100;
+	border:4px ridge #615c59;
+	text-shadow:1.2px 1.2px 1px #000000;
+}
+
+.achcss {
+	background:#998a80;
+	top:77.8%;
+	bottom:0px;
+	width:33.5%;
+	right:0%;
+	height:22.2%;
+	position:fixed;
+	padding-bottom:3px;
+	font-size:14px;
+	z-index:100;
+	border:4px ridge #615c59;
+	text-shadow:1px 1px 1px #000000;
+}
+
+.rescss {
+    background-color:#130d0a;
+	border:4px groove #7e492c;
+	border-radius:12px;
+	background-size:100% 100%;
+    margin:auto;
+	margin-top:5px;
+	right:0;
+	left:0;
+	width:90%;
+	height:auto;
+	font-size:14px;
+	z-index:1;
+    position:fixed;
+	box-shadow:0px 0px 20px 6px rgba(0, 0, 0, 1), inset 0px 0px 6px 1px rgba(103,66,46,0.75);
+}
+
+.resourcescss {
+	background:#998a80;
+    top:8.3%;
+    left:0%;
+	width:17%;
+	height:91.7%;
+	overflow-x:hidden;
+	overflow-y:scroll;
+	position:fixed;
+	padding-bottom:48px;
+	font-size:14px;
+	border:4px ridge #615c59;
+}
+
+.actionscss {
+	background:#998a80;
+	top:0;
+    left:16.75%;
+	width:17%;
+	height:50%;
+	overflow-x:hidden;
+    overflow-y:scroll;
+	position:fixed;
+	font-size:14px;
+	border:4px ridge #615c59;
+}
+
+.devcss {
+	background:#998a80;
+	top:50%;
+	left:16.75%;
+	width:17%;
+	height:50%;
+	overflow-x:hidden;
+    overflow-y:scroll;
+	position:fixed;
+	font-size:14px;
+	border:4px ridge #615c59;;
+}
+
+#bulkDisplay {
+margin:-11px 24px 4px 24px;
+}
+
+.res,.upgrade {
+	background:#b16636;
+    display:inline-block;
+    padding:0px;
+    margin:2px;
+    cursor:pointer;
+	transition:all 0.1s;
+	border:3px ridge #b16636;
+	border-radius:8px;
+}
+
+.res:hover,.upgrade:hover {
+    background:#e77437;
+	box-shadow:0px 0px 10px 4px #ff5700;
+	border:3px ridge #ff5700;
+	border-radius:8px;
+	transition:all 0s;
+}
+
+.tag-unearned {
+    background:#212121;
+	border:3px ridge #4f4f4f;
+	transition:all 0.1s;
+}
+
+.tag-unearned:hover,.tag-unearned.lit {
+    background:#353535;
+	box-shadow:0px 0px 10px 4px #4f4f4f;
+	border:3px ridge #4f4f4f;
+	transition:all 0s;
+}
+
+.tag-earned {
+    background:#5deb38;
+	border:3px ridge #75faac;
+	transition:all 0.1s;
+}
+.tag-earned:hover,.tag-earned.lit {
+    background:#91eb79;
+	border:3px ridge #75faac;
+	box-shadow:0px 0px 10px 4px #75faac;
+	transition:all 0s;
+}
+
+.thing-text,.thing-costs {
+	font-weight:bold;
+}
+
+.tag-tutorial,.tag-flames,.tag-action,.tag-resource,.tag-dev {
+	text-shadow:1.5px 1.5px 1px #000000;
+	padding:3px;
+	display:block;
+}
+
+@keyframes burning {
+    0% {background-color: #c42900;}
+    50% {background-color: #ff3b2d;}
+    100% {background-color: #c42900;}
+}
+
+.tag-view {
+	background:#c42900;
+	border-color:#d1340b;
+    animation-name:burning;
+    animation-duration:2s;
+    animation-iteration-count:infinite;
+}
+
+.tag-gear,.tag-shop1,.tag-brewery1,.tag-crafting,.tag-statistic,.tag-device {
+	text-shadow:1.5px 1.5px 1px #000000;
+	text-align:center;
+	display:block;
+}
+
+.tag-energy {
+	background:#b1a336;
+	border-color:#b1a336;
+}
+
+.tag-friendship {
+	background:#b13636;
+	border-color:#b13636;
+}
+
+.tag-money {
+	background:#5eb136;
+	border-color:#5eb136;
+}
+
+.tag-weather {
+	background:#3690b1;
+	border-color:#3690b1;
+}
+
+.tag-cutg {
+	background:#7ba043;
+	border-color:#7ba043;
+}
+.tag-cutg:hover {
+	background:#87b343;
+	box-shadow:0px 0px 10px 4px #7aff00;
+	border:3px ridge #87b343;
+	transition:all 0s;
+}
+
+.tag-flames {
+	height:56px;
+	background:#cc4823;
+	border-color:#cc4823;
+}
+.tag-flames:hover {
+	background:#e84c20;
+	box-shadow:0px 0px 10px 4px #f53d09;
+	border:3px ridge #e84c20;
+	transition:all 0s;
+}
+
+.tag-inv:hover,.tag-achievement:hover {
+	transform:scale(1.1,1.1);
+	transition:transform 0s;
+}
+
+@keyframes devflash {
+    0% {background-color: #b16636;}
+    50% {background-color: #ef8745;}
+    100% {background-color: #b16636;}
+}
+
+@keyframes cutflash {
+    0% {background-color: #7ba043;}
+    50% {background-color: #96d13c;}
+    100% {background-color: #7ba043;}
+}
+
+.tag-devflash {
+    animation-name:devflash;
+    animation-duration:1s;
+    animation-iteration-count:3;
+}
+
+.tag-cutflash {
+    animation-name:cutflash;
+    animation-duration:1s;
+    animation-iteration-count:1;
+}
+
+#tooltip.thirtytwo .thing-icon {
+    height:32px;
+    width:32px;
+}
+
+.fullWidth {
+    display:block;
+    margin-left:0px;
+    margin-right:0px;
+    z-index:10;
+}
+
+#game.fullWidth {
+    height:auto;
+    min-height:auto;
+}
+
+.fullWidth,.fullWidth:hover {
+    box-shadow:none;
+}
+
+.fullWidth:before,.fullWidth:after {
+    content:'';
+    height:1px;
+    background:linear-gradient(to right,rgba(255,255,255,0) 0%,rgba(255,255,255,0.25) 50%,rgba(255,255,255,0) 100%);
+    position:absolute;
+    left:0px;
+    right:0px;
+    z-index:-1;
+}
+
+.fullWidth:before{top:-1px;}
+.fullWidth:after{bottom:-1px;}
+ 
+.fullWidth .thing-icon {
+    margin-top:-14px;
+    margin-bottom:-14px;
+}
+
+.fullWidth .thing-text{
+    margin-top:-4px;
+    margin-bottom:-4px;
+}
+
+#game.filtersOn .thing-icon{filter:drop-shadow(3px 3px 1px rgba(0,0,0,0.5));}
+
+Layout
+
+*res
+	contains:Resources
+	class:fullWidth
+*buttons
+	contains:Buttons
+
+*log
+	contains:Log
+	class:logcss
+*invbox
+	header:Inventory
+	contains:tag:inv
+	class:invcss
+	names:hide
+	costs:hide
+*achbox
+	header:Achivements / Goals
+	contains:tag:achievement
+	class:achcss
+	names:hide
+	costs:hide
+
+*resbox
+	contains:tag:mainres
+	class:rescss
+	tooltip origin:bottom
+
+*resourcesbox
+    header:Resources
+	contains:tag:resource
+	class:resourcescss
+	tooltip origin:right
+
+*actionsbox
+    header:Actions
+	contains:tag:tutorial, tag:action
+	class:actionscss
+	tooltip origin:right
+*devbox
+    header:Development
+	contains:tag:dev
+	class:devcss
+	tooltip origin:right
+	
+Resources
+
+*wait
+    name:Wait
+    hidden
+
+// tutorial
+
+*pgv
+	name:Private Game Version
+	on start:
+		yield 1 pgv
+		do achievementcheck with tag:achievement
+	end
+	hidden
+	on load:
+	if (pgv<1)
+		toast Hi! <b>Release 1</b> released while you were away!<//><i>Check <u>Info & Stats</u> to see the patch notes.</i>
+		lose (pgv) pgv
+		yield 1 pgv
+		do achievementcheck with tag:achievement
+	end
+	if (pgv>1)
+		toast <#ff0000>This save is from a future version of SMS '24. New content from that version cannot be loaded here.</#>
+	end
+	end
+	hidden
+	
+*logmsg
+	name:Start/Load Log Message
+	on start:
+		log Welcome to <#955a22><b>Stone Mine Simulator 2024</b></#>, made by LGPlayer13.<//>You're currently running <#ff9502>Release 1</#> with <#939393>[pgv] Internal GV</#>.<//><.>It's recommended that you set the <i>Number Display</i> setting to <i>Full</i>.
+	end
+	on load:
+	    if (pgv>=1)
+			$splash=random(1,10)
+			log <#955a22><b>SMS '24</b></#> by LG<//>Running <#ff9502>Alpha 1</#> / <#939393>[pgv] Internal GV</#> [?pgv<0|(<#ff0000>Outdated!</#>)]
+			if ($splash>0)
+				if ($splash=1) log <i>Good morning.</i>
+				if ($splash=2) log <i>What's good?</i>
+				if ($splash=3) log <i>No, this is not a clicker game.</i>
+				if ($splash=4) log <i>Aren't you just so glad to be here again?</i>
+				if ($splash=5) log <i>We've all been waiting for you.</i>
+				if ($splash=6) log <i>Hey there, listen up!</i>
+				if ($splash=7) log <i>Don't burn yourself playing this.</i>
+				if ($splash=8) log <i>You come here often?</i>
+				if ($splash=9) log <i>In Alpha!</i>
+				if ($splash=10) log <i>Nothing but the worst.</i>
+			end
+			log <#ff0000>This game is currently in its Alpha stage. There's bound to be bugs and unfinished features lying around.</#>
+		end
+	end
+	hidden
+
+//top FF discord forum post link: https://discord.com/channels/412363381891137536/1260440258429063290/1260440258429063290
+
+// main resources
+
+*stone
+	name:Stone
+	desc:<q>Rock-solid and shaped like pebbles.</q>
+	icon:resourceIcons[0,0]
+	tag:mainres
+	tooltip class:thirtytwo
+	show earned
+	shown
+	
+*goldstone
+	name:Golden Stone
+	desc:<q>Rock-solid and shaped like pebbles.</q>
+	icon:resourceIcons[0,1]
+	tag:mainres
+	tooltip class:thirtytwo
+	show earned
+	shown
+
+Buttons
+
+*pick1
+	name:Wooden Pick
+	desc:<//><#000000>ㅤ</#><//>}────<b><#00ff52>Stats</#></b>────{<.><#97683c>25% Power</#><.><#fffba3>Value:</#> <#ffee00>25 Coins</#><.>Compatible with the <#565656>Stone Mines</#>, <#9d9d9d>Coal Mines</#>, and <#838383>Steel Mines</#><//><#000000>ㅤ</#><//>}────<b><#d457ff>Effects</#></b>────{<.>No special effects<//><#000000>ㅤ</#><q>Kept together by gorilla glue and multiple prayers.</q>
+	icon:https://file.garden/Yhwc9XZFah3TM9iw/SMS_wooden%20pick.png
+	on click:yield 1 stone
+	class:bigButton hasFlares
+	tooltip origin:bottom
+	tooltip class:thirtytwo
+	no text
+	tag:pickaxe
+	shown
